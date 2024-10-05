@@ -1,5 +1,5 @@
 const fs = require('fs');
-const csv = require('csv-parser'); 
+const csv = require('csv-parser');
 
 function findMinPriceForFoodItems(filePath, foodItems) {
   const restaurantData = {};  
@@ -9,26 +9,23 @@ function findMinPriceForFoodItems(filePath, foodItems) {
     .on('data', (row) => {
       const restaurantId = row['restaurant_id'];
       const price = parseFloat(row['price']);
-      const foodItem = row['food_item_name'];
-      const foodItem1 = row['food_item_1'];
-      const foodItem2 = row['food_item_2'];
-      const foodItem3 = row['food_item_3'];
-      const foodItem4 = row['food_item_4'];
-      const foodItem5 = row['food_item_5'];
-
-      
+      const foodItemsInRow = [
+        row['food_item_1'],
+        row['food_item_2'],
+        row['food_item_3'],
+        row['food_item_4'],
+        row['food_item_5']
+      ].filter(item => item);  
 
       if (!restaurantData[restaurantId]) {
         restaurantData[restaurantId] = {};
       }
 
-
-      restaurantData[restaurantId][foodItem1] = price;
-      restaurantData[restaurantId][foodItem2] = price;
-      restaurantData[restaurantId][foodItem3] = price;
-      restaurantData[restaurantId][foodItem4] = price;
-      restaurantData[restaurantId][foodItem5] = price;
-
+      for (let foodItem of foodItemsInRow) {
+        if (!restaurantData[restaurantId][foodItem] || restaurantData[restaurantId][foodItem] > price) {
+          restaurantData[restaurantId][foodItem] = price;
+        }
+      }
     })
     .on('end', () => {
       let minPrice = null;
@@ -36,7 +33,7 @@ function findMinPriceForFoodItems(filePath, foodItems) {
 
       for (let restaurantId in restaurantData) {
         const foodAvailable = restaurantData[restaurantId];
-        
+
         let allItemsPresent = true;
         let totalCost = 0;
 
@@ -59,11 +56,12 @@ function findMinPriceForFoodItems(filePath, foodItems) {
 
       if (matchingRestaurantId !== null) {
         console.log(`${matchingRestaurantId}, ${minPrice.toFixed(2)}`);
+        console.log(restaurantData)
       } else {
         console.log('No matching restaurant found');
       }
     });
 }
 
-findMinPriceForFoodItems('./data2.csv', ['burger',	'jalapeno_poppers',	'extra_salsa']); 
-findMinPriceForFoodItems('./data2.csv', ['extreme_fajita']);  
+findMinPriceForFoodItems('./data2.csv', ['burger', 'jalapeno_poppers', 'extra_salsa']);
+findMinPriceForFoodItems('./data2.csv', ['extreme_fajita']);
