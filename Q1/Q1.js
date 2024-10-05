@@ -93,7 +93,5 @@ const filesystem = {
     return `Total size: ${calculateSize(dir)}`;
   }
   
-  console.log(getTotalSize("root.dir1.subdir1", filesystem));  
-  console.log(getTotalSize("root.dir2.subdir4.subsubdir5", filesystem));  
   console.log(getTotalSize("root.dir3", filesystem));  
-  console.log(getTotalSize("root.nonexistentdir", filesystem));  
+  

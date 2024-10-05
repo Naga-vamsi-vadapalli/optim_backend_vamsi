@@ -10,12 +10,25 @@ function findMinPriceForFoodItems(filePath, foodItems) {
       const restaurantId = row['restaurant_id'];
       const price = parseFloat(row['price']);
       const foodItem = row['food_item_name'];
+      const foodItem1 = row['food_item_1'];
+      const foodItem2 = row['food_item_2'];
+      const foodItem3 = row['food_item_3'];
+      const foodItem4 = row['food_item_4'];
+      const foodItem5 = row['food_item_5'];
+
+      
 
       if (!restaurantData[restaurantId]) {
         restaurantData[restaurantId] = {};
       }
 
-      restaurantData[restaurantId][foodItem] = price;
+
+      restaurantData[restaurantId][foodItem1] = price;
+      restaurantData[restaurantId][foodItem2] = price;
+      restaurantData[restaurantId][foodItem3] = price;
+      restaurantData[restaurantId][foodItem4] = price;
+      restaurantData[restaurantId][foodItem5] = price;
+
     })
     .on('end', () => {
       let minPrice = null;
@@ -52,5 +65,5 @@ function findMinPriceForFoodItems(filePath, foodItems) {
     });
 }
 
-findMinPriceForFoodItems('data.csv', ['burger', 'tofu_log']); 
-findMinPriceForFoodItems('data.csv', ['chef_salad', 'wine_spritzer']);  
+findMinPriceForFoodItems('./data2.csv', ['burger',	'jalapeno_poppers',	'extra_salsa']); 
+findMinPriceForFoodItems('./data2.csv', ['extreme_fajita']);  
