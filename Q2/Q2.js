@@ -56,12 +56,11 @@ function findMinPriceForFoodItems(filePath, foodItems) {
 
       if (matchingRestaurantId !== null) {
         console.log(`${matchingRestaurantId}, ${minPrice.toFixed(2)}`);
-        console.log(restaurantData)
       } else {
         console.log('No matching restaurant found');
       }
     });
 }
 
-findMinPriceForFoodItems('./data2.csv', ['burger', 'jalapeno_poppers', 'extra_salsa']);
+findMinPriceForFoodItems('./data2.csv', ['burger', 'extreme_fajita', 'extra_salsa']);
 findMinPriceForFoodItems('./data2.csv', ['extreme_fajita']);
